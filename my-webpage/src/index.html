@@ -1,21 +1,225 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Webpage</title>
-    <link rel="stylesheet" href="styles/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yolanda & Amado</title>
+  <title>Temporizador Boda</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      background: #fdf6f0;
+      color: #4b3b2a;
+    }
+    header {
+      background: url('IMG_HEADER.jpg') no-repeat center center/cover;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      position: relative;
+    }
+    header::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.4);
+    }
+    header h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 4em;
+      z-index: 1;
+    }
+    header p {
+      font-size: 1.2em;
+      z-index: 1;
+    }
+    .section {
+      padding: 60px 20px;
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .section h2 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.5em;
+      margin-bottom: 10px;
+    }
+    .timeline {
+      font-weight: 600;
+      margin-top: 20px;
+    }
+    .timeline div {
+      margin-bottom: 15px;
+    }
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+    .gallery img {
+      width: 200px;
+      border-radius: 10px;
+    }
+    .footer {
+      padding: 30px;
+      text-align: center;
+      background: #e8d3b9;
+      font-size: 0.9em;
+    }
+    body {
+      background: #fff8f2;
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      padding: 50px;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      color: #b58e52;
+    }
+
+    .timer {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      font-size: 2em;
+    }
+
+    .unit {
+      background: white;
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      border: 4px solid gold;
+      min-width: 100px;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .unit span.number {
+      display: block;
+      font-size: 2.5em;
+      font-weight: bold;
+      color: #333;
+      text-shadow: 1px 1px 2px #d4af37;
+    }
+
+    .unit span.label {
+      margin-top: 5px;
+      font-size: 0.8em;
+      color: #666;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>Welcome to My Webpage</h1>
-    </header>
-    <main>
-        <p>This is a simple webpage created as a project.</p>
-    </main>
-    <footer>
-        <p>&copy; 2023 My Webpage</p>
-    </footer>
-    <script src="scripts/main.js"></script>
+  <header>
+    <div>
+      <h1>Yolanda & Amado</h1>
+      <p>Two hearts, one promise, forever together...<br>
+      13 de Septiembre, 2025</p>
+    </div>
+  </header>
+
+  <section class="section">
+    <h2>Wedding Timeline</h2>
+    <div class="timeline">
+      <div>
+        <strong>Ceremonia:</strong><br>
+        Centro Cristiano Shamma<br>
+        <em>5:00 PM</em>
+      </div>
+      <div>
+        <strong>Celebración:</strong><br>
+        Brownsville Events Center<br>
+        <em>Hora por confirmar</em>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Momentos Juntos</h2>
+    <div class="gallery">
+      <img src="IMG_1.jpg" alt="Moment 1">
+      <img src="IMG_2.jpg" alt="Moment 2">
+      <img src="IMG_3.jpg" alt="Moment 3">
+      <img src="IMG_4.jpg" alt="Moment 4">
+      <img src="IMG_5.jpg" alt="Moment 5">
+    </div>
+  </section>
+  <h1>Contando hacia nuestra boda</h1>
+  <div class="timer">
+    <div class="unit">
+      <span class="number" id="years">0</span>
+      <span class="label">Años</span>
+    </div>
+    <div class="unit">
+      <span class="number" id="months">0</span>
+      <span class="label">Meses</span>
+    </div>
+    <div class="unit">
+      <span class="number" id="days">0</span>
+      <span class="label">Días</span>
+    </div>
+    <div class="unit">
+      <span class="number" id="hours">0</span>
+      <span class="label">Horas</span>
+    </div>
+    <div class="unit">
+      <span class="number" id="minutes">0</span>
+      <span class="label">Minutos</span>
+    </div>
+  </div>
+
+  <script>
+    // Ajusta esta fecha a la de tu boda (año, mes - 1, día)
+    const weddingDate = new Date(2025, 11, 19 ,14, 0, 0); // 19 de diciembre de 2025 a las 14:00
+
+    function updateCountdown() {
+      const now = new Date();
+      let years = weddingDate.getFullYear() - now.getFullYear();
+      let months = weddingDate.getMonth() - now.getMonth();
+      let days = weddingDate.getDate() - now.getDate();
+      let hours = weddingDate.getHours() - now.getHours();
+      let minutes = weddingDate.getMinutes() - now.getMinutes();
+      let seconds = weddingDate.getSeconds() - now.getSeconds();
+
+      if (days < 0) {
+        months--;
+        days += new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+      }
+
+      if (months < 0) {
+        years--;
+        months += 12;
+      }
+
+      document.getElementById('years').textContent = years;
+      document.getElementById('months').textContent = months;
+      document.getElementById('days').textContent = days;
+      document.getElementById('hours').textContent = hours;
+      document.getElementById('minutes').textContent = minutes;
+      document.getElementById('seconds').textContent = seconds;
+        if (years < 0 || (years === 0 && months < 0) || (years === 0 && months === 0 && days < 0)) {
+            document.querySelector('.timer').innerHTML = "<h2>¡Ya es el gran día!</h2>";
+        }   else if (years === 0 && months === 0 && days === 0) {
+            document.querySelector('.timer').innerHTML = "<h2>¡Ya es el gran día!</h2>";
+        } else {
+            document.querySelector('.timer').innerHTML = "<h2>Contando hacia nuestra boda</h2>";
+        }
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000 * 60 * 60); // actualiza cada hora
+  </script>
+  <div class="footer">
+    ¡Estamos muy emocionados de compartir este día tan especial con ustedes!
+
+  </div>
 </body>
 </html>
